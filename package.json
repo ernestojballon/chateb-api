@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "node scripts/deploy.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@aws-sdk/client-lambda": "^3.758.0",
+    "@clerk/clerk-sdk-node": "^5.0.16",
+    "@google/generative-ai": "^0.22.0",
+    "adm-zip": "^0.5.16",
+    "axios": "^1.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.19.2",
+    "imagekit": "^5.0.1",
+    "mongoose": "^8.5.1",
+    "nodemon": "^3.1.4",
+    "path": "^0.12.7",
+    "serverless-http": "^3.2.0",
+    "url": "^0.11.3"
+  }
+}
