@@ -65,7 +65,7 @@ router.post("/chat-message/:chatId", async (req, res) => {
         parts: [{ text: response.text() }] 
       }
     ]);
-   
+    
     res.end();
   } catch (error) {
     console.error("Error in Gemini:", error);
@@ -74,7 +74,7 @@ router.post("/chat-message/:chatId", async (req, res) => {
   }
 });
 
-router.post("/rename-chat/:chatId", async (req, res) => {
+router.put("/rename-chat/:chatId", async (req, res) => {
   const userId = req.auth.userId;
   const chatId = req.params.chatId;
   if(!userId) return res.status(401).json({error: "Unauthorized"});
@@ -89,6 +89,10 @@ router.post("/rename-chat/:chatId", async (req, res) => {
     }
   // generate new title using llm and chat history
   const chatSession = initChatModelSession(chat.history);
+  if (chat.history.length>2 ){
+    //don not update
+     res.status(200).json({ message: "no need to rename chat" });
+  }
   const result = await chatSession.sendMessage([
     `suggest a name for this chat , respond just with 
     the chat name, choose a meaningful, usefull to recognized 
@@ -99,7 +103,7 @@ router.post("/rename-chat/:chatId", async (req, res) => {
     "javascript ninary search in js", "find the issue in the code"
     `]);
 
-    const newtitle = await result.response;
+    const newtitle = await result.response.text();
   
     await updateChatName(chatId,userId,newtitle);
 
