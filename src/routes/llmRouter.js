@@ -90,7 +90,7 @@ router.put("/rename-chat/:chatId", async (req, res) => {
   const chatSession = initChatModelSession(chat.history);
   if (chat.history.length>2 ){
     //don not update
-     res.status(200).json({ message: "no need to rename chat" });
+     return res.status(200).json({ message: "no need to rename chat" });
   }
   const result = await chatSession.sendMessage([
     `suggest a name for this chat , respond just with 
