@@ -8,7 +8,7 @@ const router = express.Router();
 
 
 // Streaming endpoint for chat messages
-router.post("/stream/:chatId", async (req, res) => {
+router.post("/chat-message/:chatId", async (req, res) => {
   const userId = req.auth.userId;
   const chatId = req.params.chatId;
   if(!userId) return res.status(401).json({error: "Unauthorized"});

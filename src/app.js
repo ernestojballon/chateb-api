@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 import ImageKit from "imagekit";
 import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
-import geminiRouter from "./routes/geminiRouter.js";
+import llmRouter from "./routes/llmRouter.js";
 import chatRouter from "./routes/chatsRouter.js";
 import {connectMongo} from "./db/index.js";
 
@@ -61,7 +61,7 @@ app.get("/api/upload", (req, res) => {
 
 app.use("/api/chats",ClerkExpressRequireAuth(),chatRouter); 
 
-app.use("/api/gemini",ClerkExpressRequireAuth(), geminiRouter); 
+app.use("/api/llm",ClerkExpressRequireAuth(), llmRouter); 
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
