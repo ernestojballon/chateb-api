@@ -1,7 +1,6 @@
 // server.js or routes/chat.js
 import express from "express";
 import axios from "axios";
-import model from "../llm/gemini.js";
 import { getChat, pushToChatHistory, updateChatName } from "../db/chatdb.js";
 import { initChatModelSession } from "../llm/chatllm.js";
 
