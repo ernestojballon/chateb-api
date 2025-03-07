@@ -1,6 +1,8 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import path from "path";
+import url from "url";
 import ImageKit from "imagekit";
 import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
 import llmRouter from "./routes/llmRouter.js";
@@ -8,10 +10,15 @@ import chatRouter from "./routes/chatsRouter.js";
 import {connectMongo} from "./db/index.js";
 
 
+
+
 const app = express();
 connectMongo()
   .then(() => console.log("Connected to MongoDB"))
   .catch(err => console.error("MongoDB connection error:", err));
+
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const corsOptions = {
   origin:  [`${process.env.CLIENT_URL}`, 'http://localhost:5173'],
@@ -62,6 +69,11 @@ app.get("/api/upload", (req, res) => {
 app.use("/api/chats",ClerkExpressRequireAuth(),chatRouter); 
 
 app.use("/api/llm",ClerkExpressRequireAuth(), llmRouter); 
+
+app. use(express.static(path.join(__dirname, "../dist")));
+app.get("*", (req, res ) => {
+  res.sendFile(path.join(__dirname, "../dist"), "index.html");
+})
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
