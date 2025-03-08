@@ -2,7 +2,7 @@
 import express from "express";
 import axios from "axios";
 import { getChat, pushToChatHistory, updateChatName } from "../db/chatdb.js";
-import { initChatModelSession } from "../llm/chatllm.js";
+import { initChatModelSession } from "../llm/chatLlm.js";
 
 const router = express.Router();
 
